@@ -28,15 +28,16 @@
           [(ngModel)]="user.telefone" name="telefone"></ion-input>
       </ion-item>
 
-      <div *ngIf="_id==null">
+      <div *ngIf="_id===null">
         <ion-item class="pt-10">
-          <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua Senha"
-            [(ngModel)]="user.senha" name="senha" #pass="ngModel"></ion-input>
+          <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua senha"
+            pattern="{8}" [(ngModel)]="user.senha" name="senha" #pass="ngModel"></ion-input>
         </ion-item>
 
         <ion-item class="pt-10">
-          <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua Senha"
-            (ngModel)="confpass" name="confsenha" #confpass="ngModel"></ion-input>
+          <ion-input type="password" label="Confirme a senha" label-placement="floating"
+            placeholder="Digite novamente a senha" pattern="{8}" (ngModel)="confpass" name="confsenha"
+            #confpass="ngModel"></ion-input>
         </ion-item>
 
         <div class="pt-10 ion-text-end">
@@ -45,7 +46,7 @@
         </div>
       </div>
 
-      <div class="pt-10 ion-text-end" *ngIf="_id!=null">
+      <div class="pt-10 ion-text-end" *ngIf="_id!==null">
         <ion-button [disabled]="fc.invalid" (click)="update()">Atualizar</ion-button>
         <ion-button color="danger" routerLink="/">Cancelar</ion-button>
       </div>

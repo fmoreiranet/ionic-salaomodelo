@@ -8,18 +8,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
-      },
-      {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
-      {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
-      {
         path: 'userForm',
         loadChildren: () => import('../pages/user-form/user-form.module').then(m => m.UserFormPageModule)
       },
@@ -52,6 +40,15 @@ const routes: Routes = [
         path: 'userPerfil/:id',
         loadChildren: () => import('../pages/user-perfil/user-perfil.module').then(m => m.UserPerfilPageModule)
       },
+      {
+        path: 'schedule',
+        loadChildren: () => import('../pages/schedule/schedule.module').then(m => m.SchedulePageModule)
+      },
+      {
+        path: 'contact',
+        loadChildren: () => import('../pages/contact/contact.module').then(m => m.ContactPageModule)
+      },
+
       {
         path: '',
         redirectTo: '/tabs/productList',

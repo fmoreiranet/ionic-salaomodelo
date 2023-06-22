@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
@@ -13,7 +13,8 @@ export class UserPerfilPage implements OnInit {
 
   constructor(
     private activatedRouter: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -60,6 +61,12 @@ export class UserPerfilPage implements OnInit {
           this.imageSrc = resUrl
         })
     }
+  }
+
+  async logoff() {
+    await this.userService.logoff().then(() => {
+      this.router.navigate(["/"])
+    });
   }
 
 }

@@ -105,4 +105,8 @@ export class UserService {
     const storage = getStorage();
     return await getDownloadURL(ref(storage, imgRef))
   }
+
+  async getCurrentUser() {
+    return await this.auth.currentUser
+  }
 }
