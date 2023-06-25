@@ -5,11 +5,33 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Ionic:Launch via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "serve"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "WEB:Launch Chrome",
             "url": "http://localhost:8100",
             "webRoot": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full:Compound",
+            "configurations": [
+                "Ionic:Launch via NPM",
+                "WEB:Launch Chrome"
+            ]
         }
     ]
 }
