@@ -18,7 +18,6 @@ export class TabsPage {
   user = new User
 
   // https://ionicframework.com/docs/angular/lifecycle
-
   ionViewWillEnter() {
     let currentAuth = this.userService.getIdCurrentUser()
     if (currentAuth) {
