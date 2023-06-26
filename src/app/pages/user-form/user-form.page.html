@@ -14,8 +14,8 @@
   <form #fc="ngForm">
     <ion-list>
       <ion-item class="pt-10">
-        <ion-input label="Nome" label-placement="floating" placeholder="Digite seu nome" [(ngModel)]="user.nome"
-          name="nome" required></ion-input>
+        <ion-input type="text" label="Nome" label-placement="floating" placeholder="Digite seu nome"
+          [(ngModel)]="user.nome" name="nome" required></ion-input>
       </ion-item>
 
       <ion-item class="pt-10">
@@ -24,19 +24,21 @@
       </ion-item>
 
       <ion-item class="pt-10">
-        <ion-input label="Telefone" label-placement="floating" placeholder="Digite seu Telefone"
+        <ion-input type="tel" label="Telefone" label-placement="floating" placeholder="Digite seu Telefone"
           [(ngModel)]="user.telefone" name="telefone"></ion-input>
       </ion-item>
 
-      <div *ngIf="_id==null">
+      <div *ngIf="_id===null">
         <ion-item class="pt-10">
           <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua Senha"
-            [(ngModel)]="user.senha" name="senha" #pass="ngModel"></ion-input>
+            [(ngModel)]="user.senha" name="senha" #pass="ngModel" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            required></ion-input>
         </ion-item>
 
         <ion-item class="pt-10">
           <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua Senha"
-            (ngModel)="confpass" name="confsenha" #confpass="ngModel"></ion-input>
+            (ngModel)="confpass" name="confsenha" #confpass="ngModel" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            required></ion-input>
         </ion-item>
 
         <div class="pt-10 ion-text-end">
@@ -45,7 +47,7 @@
         </div>
       </div>
 
-      <div class="pt-10 ion-text-end" *ngIf="_id!=null">
+      <div class="pt-10 ion-text-end" *ngIf="_id!==null">
         <ion-button [disabled]="fc.invalid" (click)="update()">Atualizar</ion-button>
         <ion-button color="danger" routerLink="/">Cancelar</ion-button>
       </div>

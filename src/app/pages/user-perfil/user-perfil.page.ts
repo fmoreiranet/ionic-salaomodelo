@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
@@ -13,7 +13,8 @@ export class UserPerfilPage implements OnInit {
 
   constructor(
     private activatedRouter: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -22,14 +23,19 @@ export class UserPerfilPage implements OnInit {
 
   user = new User;
   _id: string | null = null;
-  imageSrc: string | undefined;
+  imageSrc: string = "assets/icon/icon-avatar.svg"
 
-  getParam() {
+  async getParam() {
     this._id = this.activatedRouter.snapshot.paramMap.get("id");
     if (this._id) {
-      this.userService.get(this._id).then(res => {
-        this.user = <User>res;
-      })
+      this.userService.get(this._id)
+        .then(async resUser => {
+          this.user = <User>resUser;
+          if (this.user.foto) {
+            await this.userService.getProtoPerfil(this.user.foto)
+              .then(resPhoto => this.imageSrc = resPhoto);
+          }
+        })
     }
   }
 
@@ -53,6 +59,11 @@ export class UserPerfilPage implements OnInit {
         })
 
     }
+  }
+
+  async logoff() {
+    await this.userService.logoff();
+    this.router.navigate(["/"])
   }
 
 }

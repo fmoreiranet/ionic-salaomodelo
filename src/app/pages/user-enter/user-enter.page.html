@@ -19,8 +19,8 @@
       </ion-item>
 
       <ion-item class="pt-10">
-        <ion-input label="Senha" label-placement="floating" placeholder="Digite sua Senha" [(ngModel)]="senha"
-          name="senha" required></ion-input>
+        <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua Senha"
+          [(ngModel)]="senha" name="senha" pattern=".{6,}" required></ion-input>
       </ion-item>
 
       <div class="pt-10 ion-text-center">

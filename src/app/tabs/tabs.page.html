@@ -3,11 +3,17 @@
     <ion-title>
       SalãoWeb
     </ion-title>
-    <ion-chip slot="end" routerLink="/tabs/userEnter">
+    <ion-chip slot="end" routerLink="/tabs/userEnter" *ngIf="user._id === ''">
       <ion-avatar>
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img alt="Silhouette of a person's head" src="assets/icon/icon-avatar.svg" />
       </ion-avatar>
       <ion-label>User</ion-label>
+    </ion-chip>
+    <ion-chip slot="end" [routerLink]="['/tabs/userPerfil',user._id]" *ngIf="user._id !== ''">
+      <ion-avatar>
+        <img alt="Photo user" [src]="user.foto" src="assets/icon/icon-avatar.svg" />
+      </ion-avatar>
+      <ion-label>{{user.nome}}</ion-label>
     </ion-chip>
   </ion-toolbar>
 </ion-header>

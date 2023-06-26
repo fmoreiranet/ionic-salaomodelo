@@ -4,13 +4,14 @@ import {
   deleteDoc, where, setDoc,
 } from '@angular/fire/firestore';
 import {
-  Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut,
+  Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, user,
 } from '@angular/fire/auth';
 
 import { Storage, getDownloadURL, getStorage, ref, uploadBytesResumable, uploadString } from '@angular/fire/storage';
 import { User } from '../model/user';
 import { Router } from '@angular/router';
 import { url } from 'inspector';
+import { log } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -54,10 +55,10 @@ export class UserService {
     return result.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<User> {
     const result = await getDoc(doc(this.firestore, 'users', id));
     //return result.data()
-    return { _id: result.id, ...result.data() };
+    return <User>{ _id: result.id, ...result.data() };
   }
 
   async update(user: User, id: string) {
@@ -104,5 +105,9 @@ export class UserService {
   async getProtoPerfil(imgRef: string) {
     const storage = getStorage();
     return await getDownloadURL(ref(storage, imgRef))
+  }
+
+  getIdCurrentUser() {
+    return getAuth()
   }
 }
