@@ -52,34 +52,30 @@ export class ProductService {
     return await uploadString(storageRef, imgBase64, "base64")
   }
 
-  async getProtoPerfil(imgRef: string) {
-    const storage = getStorage();
-    return await getDownloadURL(ref(storage, imgRef))
-  }
-
-  async setListPhoto(product: Product, newPhoto: string, index: number, id: string) {
-    this.setPhotoPerfil(product.fotos[index], newPhoto)
+  async setListPhoto(product: Product, newPhoto: string, imgName: string, index: number) {
+    this.setPhotoPerfil(imgName, newPhoto)
       .then(async resPhoto => {
         product.fotos[index] = resPhoto.ref.fullPath;
-        const result = await updateDoc(doc(this.firestore, this.repository, id), {
+        const result = await updateDoc(doc(this.firestore, this.repository, product._id), {
           fotos: product.fotos
         });
         return result;
       })
   }
 
+  async getProtoPerfil(imgRef: string) {
+    const storage = getStorage();
+    return await getDownloadURL(ref(storage, imgRef))
+  }
+
   async getListPhoto(product: Product) {
-    try {
-      if (Array.isArray(product.fotos)) {
-        await this.getProtoPerfil(product.fotos[0])
-          .then(res => {
-            product.fotos[0] = res
-          }).catch(error => {
-            throw new Error("");
-          })
-      }
-    } catch (error) {
-      product.fotos[0] = "assets/icon/icon-box.svg"
+    if (Array.isArray(product.fotos)) {
+      await this.getProtoPerfil(product.fotos[0])
+        .then(res => {
+          product.fotos[0] = res
+        }).catch(error => {
+          throw new Error("");
+        })
     }
     return product
   }

@@ -13,8 +13,17 @@
 
   <ion-card>
     <div class="ion-text-center">
-      <img [alt]="'foto do produto '+product.nome" src="assets/icon/icon-box.svg" height="300px" />
+      <img [alt]="'foto do produto '+product.nome" [src]="imageSrc" height="300px"
+        (dblclick)="takePhoto(imageSrc, product)" />
     </div>
+    <ion-item>
+      <ion-avatar slot="start" *ngFor="let photo of listPhotoProduct; index as iPhoto">
+        <img [src]="photo" [alt]="" (click)="setPhotoProduct(iPhoto)" *ngIf="listPhotoProduct.length>0" />
+      </ion-avatar>
+      <ion-avatar>
+        <img src="assets/icon/icon-box.svg" (click)="addPhoto(product)" />
+      </ion-avatar>
+    </ion-item>
     <ion-card-header>
       <ion-card-title>{{product.nome}}</ion-card-title>
       <ion-card-subtitle>{{product.valor}}</ion-card-subtitle>

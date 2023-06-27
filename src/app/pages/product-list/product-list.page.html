@@ -14,8 +14,10 @@
     <ion-row>
       <ion-col size="6" *ngFor="let product of products">
         <ion-card (click)="openProductPerfil(product._id)">
-          <img [alt]="'foto do produto '+product.nome" [src]="product.fotos[0]" src="src/assets/icon/icon-box.svg"
-            width="100%" height="150px" />
+          <img [alt]="'foto do produto '+product.nome" [src]="product.fotos[0]" width="100%" height="150px"
+            *ngIf="product.fotos.length" />
+          <img [alt]="'foto do produto '+product.nome" src="assets/icon/icon-box.svg" width="100%" height="150px"
+            *ngIf="!product.fotos.length" />
           <ion-card-header>
             <ion-card-title>{{product.nome}}</ion-card-title>
             <ion-card-subtitle>{{product.valor}}</ion-card-subtitle>
