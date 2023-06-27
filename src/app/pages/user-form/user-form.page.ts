@@ -44,9 +44,9 @@ export class UserFormPage implements OnInit {
     await alert.present();
   }
 
-  save() {
+  async save() {
     try {
-      this.userService.add(this.user)
+      await this.userService.add(this.user)
         .then(async (res) => {
           console.log(res);
           this.presentAlert("Aviso", "Cadastrado");
@@ -61,10 +61,10 @@ export class UserFormPage implements OnInit {
     }
   }
 
-  update() {
+  async update() {
     try {
       if (!this._id) throw new Error("Sistema indisponível")
-      this.userService.update(this.user, this._id)
+      await this.userService.update(this.user, this._id)
         .then((res) => {
           console.log(res);
           this.presentAlert("Aviso", "Atualizado");

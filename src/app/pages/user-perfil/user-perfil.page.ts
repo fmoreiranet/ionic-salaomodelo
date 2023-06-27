@@ -45,10 +45,6 @@ export class UserPerfilPage implements OnInit {
       allowEditing: true,
       resultType: CameraResultType.Base64
     });
-    // const imageUrl = image.webPath;
-    // this.imageSrc = imageUrl;
-    // this.user.foto = this.imageSrc ? this.imageSrc : "";
-    console.log(image)
 
     if (image.base64String && this._id) {
       let nameFile = Date.now().toString() + "." + image.format;
@@ -61,9 +57,12 @@ export class UserPerfilPage implements OnInit {
     }
   }
 
-  async logoff() {
-    await this.userService.logoff();
-    this.router.navigate(["/"])
+  logoff() {
+    this.userService.logoff()
+      .then(() => {
+        this.user = new User;
+        this.router.navigate([''])
+      });
   }
 
 }

@@ -12,7 +12,9 @@
   </ion-header>
 
   <ion-card>
-    <img [alt]="'foto do produto '+product.nome" src="https://picsum.photos/200" />
+    <div class="ion-text-center">
+      <img [alt]="'foto do produto '+product.nome" src="assets/icon/icon-box.svg" height="300px" />
+    </div>
     <ion-card-header>
       <ion-card-title>{{product.nome}}</ion-card-title>
       <ion-card-subtitle>{{product.valor}}</ion-card-subtitle>

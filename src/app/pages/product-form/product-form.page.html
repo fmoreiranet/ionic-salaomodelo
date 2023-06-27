@@ -19,13 +19,15 @@
       </ion-item>
 
       <ion-item class="pt-10">
-        <ion-input type="text" label="Categoria" label-placement="floating" placeholder="Digite sua categoria"
-          [(ngModel)]="product.categoria" name="categoria" required></ion-input>
-      </ion-item>
-
-      <ion-item class="pt-10">
         <ion-input type="text" label="Descrição" label-placement="floating" placeholder="Digite sua descricao"
           [(ngModel)]="product.descricao" name="descricao" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label for="categoria">Categoria</ion-label>
+        <ion-select placeholder="" [(ngModel)]="product.categoria" name="categoria" id="categoria" required>
+          <ion-select-option [value]="item" *ngFor="let item of itemsCategoria">{{item}}</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item class="pt-10">
@@ -38,10 +40,12 @@
           [(ngModel)]="product.valor" name="valor" min=0 required></ion-input>
       </ion-item>
 
-      <ion-item class="pt-10">
+      <!-- 
+        <ion-item class="pt-10">
         <ion-input type="file" label="Fotos" label-placement="floating" placeholder="Nome da foto"
           [(ngModel)]="product.fotos" name="fotos"></ion-input>
-      </ion-item>
+        </ion-item> 
+      -->
 
       <div class="pt-10 ion-text-end">
         <ion-button [disabled]="fc.invalid" (click)="save()">Salvar</ion-button>

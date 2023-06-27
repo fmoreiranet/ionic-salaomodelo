@@ -11,7 +11,7 @@
     </ion-chip>
     <ion-chip slot="end" [routerLink]="['/tabs/userPerfil',user._id]" *ngIf="user._id !== ''">
       <ion-avatar>
-        <img alt="Photo user" [src]="user.foto" src="assets/icon/icon-avatar.svg" />
+        <img alt="Photo user" [src]="imageSrc" src="assets/icon/icon-avatar.svg" />
       </ion-avatar>
       <ion-label>{{user.nome}}</ion-label>
     </ion-chip>

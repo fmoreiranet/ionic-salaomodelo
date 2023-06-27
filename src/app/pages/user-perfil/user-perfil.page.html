@@ -12,7 +12,9 @@
   </ion-header>
 
   <ion-card>
-    <img alt="Foto de perfil" [src]="imageSrc" (click)="takePhoto()" />
+    <div class="ion-text-center">
+      <img alt="Foto de perfil" [src]="imageSrc" (click)="takePhoto()" height="300px" />
+    </div>
     <ion-card-header>
       <ion-card-title>{{user.nome}}</ion-card-title>
       <ion-card-subtitle>{{user.telefone}}</ion-card-subtitle>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -14,11 +14,14 @@ export class ProductFormPage implements OnInit {
   constructor(
     private productService: ProductService,
     private alertController: AlertController,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
+
+  itemsCategoria = ["Celular", "Eletrônicos", "Serviços"]
 
   product = new Product;
 
@@ -32,11 +35,12 @@ export class ProductFormPage implements OnInit {
     await alert.present();
   }
 
-  save() {
-    this.productService.add(this.product)
+  async save() {
+    await this.productService.add(this.product)
       .then((res) => {
         console.log(res);
         this.presentAlert("Aviso", "Cadastrado");
+        this.router.navigate(["/tabs/productPerfil/", res.id]);
       })
       .catch((err) => {
         console.log(err);

@@ -15,7 +15,8 @@ export class TabsPage {
     private router: Router,
   ) { }
 
-  user = new User
+  user = new User;
+  imageSrc: string = "assets/icon/icon-avatar.svg"
 
   // https://ionicframework.com/docs/angular/lifecycle
   ionViewWillEnter() {
@@ -28,8 +29,10 @@ export class TabsPage {
               console.log(resUser);
               this.user = resUser;
               this.user._id = res.uid;
-              await this.userService.getProtoPerfil(this.user.foto)
-                .then(resProto => this.user.foto = resProto);
+              if (this.user.foto) {
+                await this.userService.getProtoPerfil(this.user.foto)
+                  .then(resProto => this.imageSrc = resProto);
+              }
             })
         }
       })

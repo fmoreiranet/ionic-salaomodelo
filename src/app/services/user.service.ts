@@ -1,17 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import {
-  Firestore, collection, addDoc, getDoc, query, getDocs, doc, updateDoc,
-  deleteDoc, where, setDoc,
+  Firestore, collection, getDoc, query, getDocs, doc, updateDoc, where, setDoc,
 } from '@angular/fire/firestore';
 import {
-  Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, user,
+  Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut
 } from '@angular/fire/auth';
 
-import { Storage, getDownloadURL, getStorage, ref, uploadBytesResumable, uploadString } from '@angular/fire/storage';
+import { Storage, getDownloadURL, getStorage, ref, uploadString } from '@angular/fire/storage';
 import { User } from '../model/user';
 import { Router } from '@angular/router';
-import { url } from 'inspector';
-import { log } from 'console';
+
 
 @Injectable({
   providedIn: 'root',
@@ -36,19 +34,15 @@ export class UserService {
   }
 
   addUser(user: User, idDoc: string = '') {
-    //delete user._id;
-    //return addDoc(this.userCollection, <User>{...user})
+    Object.arguments.delete(user.senha)
+    Object.arguments.delete(user._id)
+    user.senha = "";
     return setDoc(doc(this.firestore, 'users/' + idDoc), <User>{
-      nome: user.nome,
-      email: user.email,
-      telefone: user.telefone,
-      //senha: user.senha,
-      ativo: user.ativo,
-    });
+      ...user
+    })
   }
 
   async list() {
-    //return collectionData(query(this.userCollection));
     const result = await getDocs(
       query(this.userCollection, where('ativo', '==', true))
     );
@@ -58,7 +52,9 @@ export class UserService {
   async get(id: string): Promise<User> {
     const result = await getDoc(doc(this.firestore, 'users', id));
     //return result.data()
-    return <User>{ _id: result.id, ...result.data() };
+    return <User>{
+      _id: result.id, ...result.data()
+    };
   }
 
   async update(user: User, id: string) {
@@ -72,7 +68,6 @@ export class UserService {
   }
 
   async delete(id: string) {
-    //return await deleteDoc(doc(this.firestore, 'users', id));
     const result = await updateDoc(doc(this.firestore, 'users', id), {
       ativo: false,
     });
@@ -96,7 +91,7 @@ export class UserService {
     const storageRef = ref(this.storage, "user/" + imgName);
     return await uploadString(storageRef, imgBase64, "base64")
       .then(async res => {
-        const result = await updateDoc(doc(this.firestore, 'users', id), {
+        await updateDoc(doc(this.firestore, 'users', id), {
           foto: res.ref.fullPath
         });
       })
